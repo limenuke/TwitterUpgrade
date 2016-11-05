@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Compose Tweet-->
+        <scene sceneID="7Lx-cu-1hf">
+            <objects>
+                <viewController id="A78-Fy-YTF" customClass="ComposeViewController" customModule="Twitter" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="wEX-M3-nF1"/>
+                        <viewControllerLayoutGuide type="bottom" id="5Qq-qn-ddh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="0nC-Ke-zmr">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="lYN-ld-0U0">
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="lYN-ld-0U0" secondAttribute="trailing" id="AsK-ev-VqR"/>
+                            <constraint firstItem="lYN-ld-0U0" firstAttribute="top" secondItem="wEX-M3-nF1" secondAttribute="bottom" id="dbp-wF-s9w"/>
+                            <constraint firstItem="lYN-ld-0U0" firstAttribute="leading" secondItem="0nC-Ke-zmr" secondAttribute="leading" id="iO1-Mg-eHU"/>
+                            <constraint firstItem="5Qq-qn-ddh" firstAttribute="top" secondItem="lYN-ld-0U0" secondAttribute="bottom" id="mmD-WR-Jci"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Compose Tweet" id="Bfp-Sh-nmO">
+                        <barButtonItem key="leftBarButtonItem" title="Tweet" id="ZFd-Sa-aKb">
+                            <connections>
+                                <action selector="onTweet:" destination="A78-Fy-YTF" id="FMD-gT-rPP"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Cancel" id="gjH-6o-yMa">
+                            <connections>
+                                <action selector="onCancel:" destination="A78-Fy-YTF" id="9M0-Ib-a1i"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="textField" destination="lYN-ld-0U0" id="FZr-Sc-vTS"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="d2N-3S-6zO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3735.1999999999998" y="122.78860569715144"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="TuB-TO-yCP">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ZAP-y1-EZy" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dUa-yh-WTZ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="A78-Fy-YTF" kind="relationship" relationship="rootViewController" id="t4O-DF-1wJ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HvQ-fW-s9G" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2796" y="122.78860569715144"/>
+        </scene>
+    </scenes>
+</document>

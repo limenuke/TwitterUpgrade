@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "D82B6C9F9DD2A2351BD49A1F5FC40F696070EFD3",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "FA05AFC5D771EC8FEB9C00D7ED661474816AF881" : 9223372036854775807,
+    "D82B6C9F9DD2A2351BD49A1F5FC40F696070EFD3" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "A1E7C914-E410-4BE7-B7F3-46EB4BAE316D",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "FA05AFC5D771EC8FEB9C00D7ED661474816AF881" : "..\/..",
+    "D82B6C9F9DD2A2351BD49A1F5FC40F696070EFD3" : "ios-twitter\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Twitter",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Twitter\/Twitter.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/limenuke\/ios-week3.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "D82B6C9F9DD2A2351BD49A1F5FC40F696070EFD3"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/limenuke\/PChalCpp.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "FA05AFC5D771EC8FEB9C00D7ED661474816AF881"
+    }
+  ]
+}

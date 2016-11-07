@@ -490,7 +490,7 @@
         <!--Mentions View Controller-->
         <scene sceneID="P8F-mz-lYf">
             <objects>
-                <viewController id="W1f-ec-STr" customClass="MentionsViewController" customModule="Twitter" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="W1f-ec-STr" customClass="MentionsViewController" customModule="Twitter" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Vz0-eR-jBJ"/>
                         <viewControllerLayoutGuide type="bottom" id="mUY-0J-fkb"/>
@@ -569,8 +569,8 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="SQ2-d1-Xqq"/>
+        <segue reference="Cb8-po-gPp"/>
         <segue reference="1NY-Zj-jLi"/>
-        <segue reference="mvv-Aj-7SA"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 </document>

@@ -22,7 +22,7 @@ class User: NSObject {
     var user_id : Int?
     init(dictionary :  NSDictionary) {
         self.dictionary = dictionary
-        //print ("The user dictionary looks like this \(dictionary)")
+        print ("The user dictionary looks like this \(dictionary)")
         name = dictionary["name"] as? String
         user_id = dictionary["id"] as? Int
         followersCt = dictionary["followers_count"] as? Int

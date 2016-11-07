@@ -34,7 +34,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             menuViewController.hamburgerViewController = hamburgerViewController
             hamburgerViewController.menuViewController = menuViewController
-            
         }
         let notificationName = NSNotification.Name("UserDidLogout")
         NotificationCenter.default.addObserver(forName: notificationName, object: nil, queue: OperationQueue.main) {

@@ -25,6 +25,9 @@ class ProfileTableViewCell: UITableViewCell {
         didSet {
             if (user.backgroundUrl != nil) {
                 backgroundImg.setImageWith(user.backgroundUrl!)
+            } else {
+                screenName.textColor = UIColor.black
+                name.textColor = UIColor.black
             }
             if (user.profileUrl != nil) {
                 profileImg.setImageWith(user.profileUrl!)

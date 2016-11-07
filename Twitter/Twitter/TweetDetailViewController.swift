@@ -47,7 +47,6 @@ class TweetDetailViewController: UIViewController {
                 self.retweetsLabel.text = "1"
             }
         })
-        
     }
     
     override func viewDidLoad() {
@@ -66,12 +65,11 @@ class TweetDetailViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "ShowComposeReply") {
-            if let destVC = segue.destination as? UINavigationController {
-                let comVC = destVC.viewControllers[0] as! ComposeViewController
+            if let destVC = segue.destination as? ComposeViewController {
                 let startStr = sender as! String
                 
-                comVC.startText = startStr as String?
-                comVC.id_str = tweet!.id_str!
+                destVC.startText = startStr as String?
+                destVC.id_str = tweet!.id_str!
             }
         }
     }

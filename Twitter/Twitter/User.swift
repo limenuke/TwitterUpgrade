@@ -15,17 +15,32 @@ class User: NSObject {
     var screenName : String?
     var dictionary : NSDictionary?
     var favoritesCt : Int?
+    var followersCt : Int?
+    var followingCt : Int?
+    var backgroundUrl : URL?
+    var tweetCt : Int?
+    var user_id : Int?
     init(dictionary :  NSDictionary) {
         self.dictionary = dictionary
+        //print ("The user dictionary looks like this \(dictionary)")
         name = dictionary["name"] as? String
+        user_id = dictionary["id"] as? Int
+        followersCt = dictionary["followers_count"] as? Int
         favoritesCt = dictionary["favourites_count"] as? Int
+        followingCt = dictionary["friends_count"] as? Int
         screenName = dictionary["screen_name"] as? String
         tagLine = dictionary["description"] as? String
+        let backgroundUrlString = dictionary["profile_background_image_url_https"] as? String
+        if let backgroundUrlString = backgroundUrlString {
+            backgroundUrl = URL(string: backgroundUrlString)
+        }
+        
+        tweetCt = dictionary["statuses_count"] as? Int
         let profileUrlString = dictionary["profile_image_url_https"] as? String
         if let profileUrlString = profileUrlString {
             let newUrl = profileUrlString.replacingOccurrences(of: "_normal", with: "")
             profileUrl = URL(string: newUrl)
-            print ("Profile url string: \(profileUrlString)")
+            //print ("Profile url string: \(profileUrlString)")
         }
         
     }
@@ -57,7 +72,6 @@ class User: NSObject {
             } else {
                 defaults.removeObject(forKey: "currentUserData")
             }
-            
             defaults.synchronize()
         }
     }

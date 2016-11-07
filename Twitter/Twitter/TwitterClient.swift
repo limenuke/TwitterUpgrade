@@ -47,9 +47,9 @@ class TwitterClient: BDBOAuth1SessionManager {
                 UIApplication.shared.open(authURL!, options: [:], completionHandler: {
                 (completed: Bool) -> Void in
                     if (completed) {
-                        print ("authorization completed")
+                        print ("Login Authorization Completed")
                     } else {
-                        print ("not completeD")
+                        print ("Login Authorization Not Completed")
                     }
                 })
             }
@@ -57,7 +57,7 @@ class TwitterClient: BDBOAuth1SessionManager {
         },
         failure: { (myError: Error?) -> Void in
             self.loginFailure?(myError as! NSError)
-            print ("Failed to get request token")
+            print ("Login Authorization: Failed to get request token")
                 
         })
     }
@@ -66,8 +66,7 @@ class TwitterClient: BDBOAuth1SessionManager {
         let requestToken = BDBOAuth1Credential(queryString: url.query)
         let client = TwitterClient.sharedInstance
         client.fetchAccessToken(withPath: "oauth/access_token", method: "POST", requestToken: requestToken, success: { (accessToken : BDBOAuth1Credential?) in
-            
-            print("Got access token.")
+            print("handleOpenUrl: Got access token.")
             client.requestSerializer.saveAccessToken(accessToken)
             self.currentAccount(success: { (user: User) in
                 User.currentUser = user
@@ -80,36 +79,36 @@ class TwitterClient: BDBOAuth1SessionManager {
     
         },
         failure: { (error : Error?) in
-            print("Failed to receive access token");
+            print("handleOpenUrl: Failed to receive access token");
             self.loginFailure?(error as! NSError)
         })
     }
     
     func currentAccount(success: @escaping (User) -> (), failure: @escaping (NSError) -> ()) {
-        get("1.1/account/verify_credentials.json", parameters: nil, success: { (operation, response) in
+        TwitterClient.sharedInstance.get("1.1/account/verify_credentials.json", parameters: nil, progress: nil,success: { (operation, response) in
             let userDictionary = response as! NSDictionary
             let user = User(dictionary: userDictionary)
+            /*
             print ("User's name is \(user.name)\n")
             print ("User's screen name is \(user.screenName)\n")
             print ("User's profile pic url is \(user.profileUrl)")
             print ("User's description is \(user.tagLine)\n")
-            
+            */
             success(user)
-    
         },
         failure: { (response, error) in
-            print ("Error gettting user.")
+            print ("currentAccount: Error gettting user.")
             failure(error as NSError)
         })
     }
     
     
     func postTweet(params: NSDictionary?, completion: @escaping (NSError?) -> () ){
-        TwitterClient.sharedInstance.post("1.1/statuses/update.json", parameters: params, success: { (error, response) in
-                print ("Posted tweet!")
+        TwitterClient.sharedInstance.post("1.1/statuses/update.json", parameters: params, progress: nil, success: { (error, response) in
+                print ("postTweet: Posted tweet!")
                 completion(nil)
             }) { (session, error) in
-                print ("Error tweeting \(error.localizedDescription)")
+                print ("postTweet: Error tweeting \(error.localizedDescription)")
                 completion(nil)
             }
     }
@@ -117,13 +116,13 @@ class TwitterClient: BDBOAuth1SessionManager {
     
     
     func favorite(id: Int, params: NSDictionary?, completion: @escaping (Error?) -> () ){
-        post("1.1/favorites/create.json?id=\(id)", parameters: params, success:
+        post("1.1/favorites/create.json?id=\(id)", parameters: params, progress: nil, success:
             { (operation, response) -> Void in
-                print("favorite")
+                print("favorite: completed")
                 completion(nil)
             }, failure:
             { (operation, error) -> Void in
-                print("error favoriting")
+                print("favorite: error")
                 completion(error)
             }
         )}
@@ -132,22 +131,37 @@ class TwitterClient: BDBOAuth1SessionManager {
     func retweet(id: Int, params: NSDictionary?, completion: @escaping (Error?) -> () ) {
         post("1.1/statuses/retweet/\(id).json", parameters: params, progress:
             { (progress) in
-                print ("Retweeting")
+                print ("reteet: Progress")
             }, success:
             { (session, response) in
-                print ("Retweeted successfully")
+                print ("retweet: Successful")
                 completion(nil)
             }) { (session, error) in
-                print ("Got an error")
+                print ("retweet: Error \(error.localizedDescription)")
                 completion(error)
             }
         }
     
-    
+    func userTimeline(id: Int, success: @escaping ([Tweet]) -> (), failure: @escaping (NSError) -> ()) {
+        let params = NSMutableDictionary()
+        params["user_id"] = id
+        get("1.1/statuses/user_timeline.json", parameters: params, progress: nil, success: { (operation, response) in
+            let tweetDictionaries = response as! [NSDictionary]
+            let tweets = Tweet.tweetsWithArray(dictionaries: tweetDictionaries)
+            /*for tweet in tweets {
+                print("\(tweet.text!)\n")
+            }*/
+            success(tweets)
+            },
+            failure: { (response, error) in
+                print ("userTimeline: Error getting home timeline. \(error.localizedDescription)")
+                failure(error as NSError)
+        })
+    }
     
     
     func homeTimeline(success: @escaping ([Tweet]) -> (), failure: @escaping (NSError) -> ()) {
-        get("1.1/statuses/home_timeline.json", parameters: nil, success: { (operation, response) in
+        get("1.1/statuses/home_timeline.json", parameters: nil, progress: nil, success: { (operation, response) in
             let tweetDictionaries = response as! [NSDictionary]
             let tweets = Tweet.tweetsWithArray(dictionaries: tweetDictionaries)
             for tweet in tweets {
@@ -158,6 +172,22 @@ class TwitterClient: BDBOAuth1SessionManager {
         failure: { (response, error) in
             print ("Error getting home timeline.")
             failure(error as NSError)
+        })
+    }
+    
+    
+    func mentionsTimeline(success: @escaping ([Tweet]) -> (), failure: @escaping (NSError) -> ()) {
+        get("1.1/statuses/mentions_timeline.json", parameters: nil, progress: nil, success: { (operation, response) in
+            let tweetDictionaries = response as! [NSDictionary]
+            let tweets = Tweet.tweetsWithArray(dictionaries: tweetDictionaries)
+            for tweet in tweets {
+                print("\(tweet.text!)\n")
+            }
+            success(tweets)
+            },
+            failure: { (response, error) in
+                print ("Error getting home timeline.")
+                failure(error as NSError)
         })
     }
 }

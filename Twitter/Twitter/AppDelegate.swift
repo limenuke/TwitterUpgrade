@@ -19,9 +19,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         if User.currentUser != nil {
             print("There is a current user")
+            /*
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "TweetsNavigationController")
+            let vc = storyboard.instantiateViewController(withIdentifier: "TweetsNav")
             window?.rootViewController = vc
+            */
+ 
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "HamburgerViewController")
+            self.window?.rootViewController = vc
+            
+            let hamburgerViewController = window!.rootViewController as! HamburgerViewController
+            let menuViewController = storyboard.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
+            
+            menuViewController.hamburgerViewController = hamburgerViewController
+            hamburgerViewController.menuViewController = menuViewController
             
         }
         let notificationName = NSNotification.Name("UserDidLogout")
@@ -31,8 +43,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
             self.window?.rootViewController = vc
+        }
+        
+        
+        /*
+        if User.currentUser != nil {
+            print("There is a current user")/*
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "TweetsNav")
+            window?.rootViewController = vc*/
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "HamburgerNavController")
+            self.window?.rootViewController = vc
+            
+            let hamburgerNavController = window!.rootViewController
+            let hamburgerViewController = hamburgerNavController?.childViewControllers[0] as! HamburgerViewController
+            
+            
+            let menuViewController = storyboard.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
+            
+            menuViewController.hamburgerViewController = hamburgerViewController
+            hamburgerViewController.menuViewController = menuViewController
+            
             
         }
+        let notificationName = NSNotification.Name("UserDidLogout")
+        NotificationCenter.default.addObserver(forName: notificationName, object: nil, queue: OperationQueue.main) {
+            (notification:Notification) in
+            print("Logging out!")
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
+            self.window?.rootViewController = vc
+        }
+        */
         return true
     }
 

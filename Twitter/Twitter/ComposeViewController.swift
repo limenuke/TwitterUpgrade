@@ -16,14 +16,9 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var screenName: UILabel!
     @IBOutlet weak var chars: UILabel!
+    @IBOutlet weak var composeHeaderView: UIView!
+
     
-    
-    
-    @IBAction func onCancel(_ sender: AnyObject) {
-        dismiss(animated: true) { 
-            
-        }
-    }
     func textViewDidChange(_ textView: UITextView) {
         print("Did edit...current chars is \(textField.text?.characters.count)")
         chars.text = String((140 - (textField.text?.characters.count)!))
@@ -39,7 +34,11 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
             textField.text = ""
         }
         profileImg.setImageWith((User.currentUser?.profileUrl)!)
+        profileImg.layer.cornerRadius = 3
+        profileImg.clipsToBounds = true
         name.text = User.currentUser?.name
+        composeHeaderView.layer.borderColor = UIColor.lightGray.cgColor
+        composeHeaderView.layer.borderWidth = 1.0
         screenName.text = User.currentUser?.screenName
         chars.text = String((140 - (textField.text?.characters.count)!))
         textField.delegate = self
@@ -54,7 +53,7 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
         }
         print(params)
         TwitterClient.sharedInstance.postTweet(params: params, completion: {(error) -> () in
-            self.onCancel(self)
+            self.navigationController?.popViewController(animated: true)
         })
 
     }

@@ -1,36 +1,29 @@
 //
-//  TweetsViewController.swift
+//  MentionsViewController.swift
 //  Twitter
 //
-//  Created by Liang Rui on 10/30/16.
+//  Created by Liang Rui on 11/7/16.
 //  Copyright © 2016 Etcetera. All rights reserved.
 //
 
 import UIKit
 
-class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, TweetCellDelegate {
+class MentionsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, TweetCellDelegate {
+
     @IBOutlet weak var tableView: UITableView!
     var refreshControl : UIRefreshControl!
     var tweets : [Tweet]?
-    
-    @IBAction func onCompose(_ sender: AnyObject) {
-        performSegue(withIdentifier: "ShowCompose", sender: nil)
-    }
-    @IBAction func onLogout(_ sender: AnyObject) {
-        TwitterClient.sharedInstance.logout()
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let attrs = [
             NSForegroundColorAttributeName: UIColor.white,
-        ]
+            ]
         
         let navBar = self.navigationController?.navigationBar
         navBar?.titleTextAttributes = attrs
         navBar?.barTintColor = UIColor.blue
         navBar?.tintColor = UIColor.white
- 
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(TweetsViewController.refresher), for: UIControlEvents.valueChanged)
         
@@ -43,7 +36,8 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.register(nibName, forCellReuseIdentifier: "TweetTableViewCell")
         
         loadData()
-                // Do any additional setup after loading the view.
+        
+        // Do any additional setup after loading the view.
     }
     
     func refresher() {
@@ -55,7 +49,7 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func loadData () {
-        TwitterClient.sharedInstance.homeTimeline(success:
+        TwitterClient.sharedInstance.mentionsTimeline(success:
             { (tweets: [Tweet]) in
                 print ("Got data")
                 self.tweets = tweets
@@ -66,11 +60,8 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
             print ("Error in TweetsVC : \(error.localizedDescription)")
         }
     }
+    
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tweets != nil {
@@ -89,26 +80,22 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         cell.delegate = self
         return cell
     }
-
-    override func viewWillAppear(_ animated: Bool) {
-        //loadData()
-    }
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == "ShowCompose") {
+        if (segue.identifier == "MShowCompose") {
             if let destVC = segue.destination as? ComposeViewController {
                 //let comVC =  destVC.viewControllers[0] as! ComposeViewController
                 destVC.startText = nil
             }
-        } else if (segue.identifier == "ShowDetailSegue") {
+        } else if (segue.identifier == "MShowDetailSegue") {
             print ("ShowDetailSegue")
             let thisTweet = sender as! Tweet
             //let detailNavController = segue.destination as! UINavigationController
             let detailViewController = segue.destination as! TweetDetailViewController
             // detailNavController.viewControllers[0] as! TweetDetailViewController
             detailViewController.tweet = thisTweet
-        } else if (segue.identifier == "ShowProfileSegue") {
+        } else if (segue.identifier == "MShowProfileSegue") {
             print ("ShowProfileSegue")
             let thisTweet = sender as! Tweet
             //let profileNavController = segue.destination as! UINavigationController
@@ -121,11 +108,23 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tweetCellDelegate(tweetCell: TweetTableViewCell, segueId: String) {
         let indexPath = tableView.indexPath(for: tweetCell)
         if (segueId == "toDetail") {
-        performSegue(withIdentifier: "ShowDetailSegue", sender: tweets![(indexPath?.row)!] )
+            performSegue(withIdentifier: "MShowDetailSegue", sender: tweets![(indexPath?.row)!] )
         } else if (segueId == "toProfile") {
-        performSegue(withIdentifier: "ShowProfileSegue", sender:  tweets![(indexPath?.row)!])
+            performSegue(withIdentifier: "MShowProfileSegue", sender:  tweets![(indexPath?.row)!])
         }
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /*
     // MARK: - Navigation
 

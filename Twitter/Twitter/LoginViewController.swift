@@ -14,14 +14,13 @@ class LoginViewController: UIViewController {
     @IBAction func onLogin(_ sender: AnyObject) {
         let client = TwitterClient.sharedInstance
         client.login(success: {
-            self.performSegue(withIdentifier: "loginSegue", sender: nil)
+            self.performSegue(withIdentifier: "ShowHamburger", sender: nil)
         }) { (error: NSError) in
             print ("Error: \(error.localizedDescription)")
         }
         
     }
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 

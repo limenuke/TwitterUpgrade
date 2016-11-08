@@ -53,11 +53,10 @@ class TwitterClient: BDBOAuth1SessionManager {
                     }
                 })
             }
-            
         },
         failure: { (myError: Error?) -> Void in
             self.loginFailure?(myError as! NSError)
-            print ("Login Authorization: Failed to get request token")
+            print ("Login Authorization: Failed to get request token \(myError?.localizedDescription)")
                 
         })
     }
@@ -69,14 +68,13 @@ class TwitterClient: BDBOAuth1SessionManager {
             print("handleOpenUrl: Got access token.")
             client.requestSerializer.saveAccessToken(accessToken)
             self.currentAccount(success: { (user: User) in
+                print("Current account success")
                 User.currentUser = user
                 self.loginSuccess?()
             }, failure: { (error: NSError) in
+                print("Current account failure")
                 self.loginFailure?(error)
             })
-            
-            self.loginSuccess?()
-    
         },
         failure: { (error : Error?) in
             print("handleOpenUrl: Failed to receive access token");
@@ -88,6 +86,7 @@ class TwitterClient: BDBOAuth1SessionManager {
         TwitterClient.sharedInstance.get("1.1/account/verify_credentials.json", parameters: nil, progress: nil,success: { (operation, response) in
             let userDictionary = response as! NSDictionary
             let user = User(dictionary: userDictionary)
+            print ("The user dict is \(response)")
             /*
             print ("User's name is \(user.name)\n")
             print ("User's screen name is \(user.screenName)\n")

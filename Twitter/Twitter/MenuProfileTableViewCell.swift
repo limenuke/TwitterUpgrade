@@ -15,8 +15,8 @@ class MenuProfileTableViewCell: UITableViewCell {
     @IBOutlet weak var profileImg: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
+        print ("The user profile url is \((User.currentUser?.profileUrl))")
         profileImg.setImageWith((User.currentUser?.profileUrl)!)
-        print ("The user profile url is \((User.currentUser?.profileUrl)!)")
         profileImg.layer.cornerRadius = 3
         profileImg.clipsToBounds = true
         

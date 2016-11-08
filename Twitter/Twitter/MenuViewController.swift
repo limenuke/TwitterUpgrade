@@ -39,8 +39,8 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         profileVC = storyboard.instantiateViewController(withIdentifier: "ProfileNav") as! UINavigationController
         let profileViewVC = profileVC.viewControllers[0] as! ProfileViewController
-        profileViewVC.thisUser = User._currentUser!
-        print ("This user's background is \(User._currentUser?.backgroundUrl)")
+        profileViewVC.thisUser = User.currentUser
+        print ("This user's background is \(User.currentUser?.backgroundUrl)")
         
         mentionsVC = storyboard.instantiateViewController(withIdentifier: "MentionsNav") as! UINavigationController
         
